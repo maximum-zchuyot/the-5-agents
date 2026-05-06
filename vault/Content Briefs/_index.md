@@ -4,4 +4,4 @@ Editorial briefs and campaign specs. One file per brief, named by the campaign o
 
 ## Topics
 
-- (none yet — populate as content briefs are produced)
+- [[post-shor]] — פוסט מזל שור לרשתות חברתיות, טון רגשי עם CTA
