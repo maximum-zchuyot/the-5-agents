@@ -6,7 +6,7 @@ Yuval is the project's creative image-generation agent, built on top of the `gpt
 
 ## Open Questions
 
-- `gpt-image-2` model ID — confirm availability in the OpenAI API; may need to fall back to `gpt-image-1` if not yet released.
+- `gpt-image-2` is NOT available via API — `gpt-image-1` is the correct working model ID. Update the skill's default model.
 - `yuval/outputs/` and `yuval/reference/` are currently tracked by git — consider adding to `.gitignore` if binary assets grow large.
 - `ceo-agent/agent.md` (subdirectory CEO stub) now coexists with `reuven.md` (flat file CEO) — consolidate when convenient.
 
@@ -17,3 +17,9 @@ Yuval is the project's creative image-generation agent, built on top of the `gpt
 - **Decisions:** Flat-file agent layout chosen per user spec (Claude Code discovers flat `.md` files in `.claude/agents/`, not subdirs). CEO renamed `reuven.md` to match the project's naming convention; `ceo-agent/agent.md` left intact as legacy. Reference/outputs dirs use `.gitkeep` to commit the structure without content.
 - **Notes / Caveats:** The exposed OpenAI API key in the user message should be rotated at platform.openai.com. Model `gpt-image-2` used as specified — verify availability.
 - **Related:** [[ceo-agent-scaffold]], [[project-scaffold]], [[obsidian-vault-bootstrap]]
+
+### 2026-05-06 — First live image generation — bull test [shipped]
+- **What was done:** Generated first real image via Yuval agent + gpt-image-gen skill. User requested a bull ("שור"); used prompt for a cinematic photorealistic bull in golden-hour light. Output saved to `yuval/outputs/2026-05-06-bull-golden-hour.png` (1.47 MB PNG) with sibling `.txt` prompt file.
+- **Decisions:** No reference images available in `yuval/reference/` — model relied on prompt alone. Used `gpt-image-1` (fallback from `gpt-image-2` which is not yet available in the API).
+- **Notes / Caveats:** `gpt-image-2` confirmed unavailable — `gpt-image-1` is the working model ID. Open question about model ID can now be resolved.
+- **Related:** [[yuval-agent-gpt-image-gen]]

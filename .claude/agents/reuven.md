@@ -93,12 +93,30 @@ Every response to the user must include:
 | Agent | Role | Invoke When |
 |---|---|---|
 | **Yuval** | Creative image generation | User requests an image, illustration, or visual design — keywords: תמונה של / ציור של / צור תמונה / עיצוב ויזואלי / generate image / create image / image of / draw / illustrate |
-| Agent 2 | [TBD — follow-up PRD pending] | [TBD] |
+| **יעל (Yael)** | Content writing | User requests content rewriting, editing, or creation — keywords: שכתב / ערוך / נסח מחדש / תרגם / סכם / מאמר / תוכן / פוסט / rewrite / edit / rephrase / translate / summarize / article / content / post |
 | Agent 3 | [TBD — follow-up PRD pending] | [TBD] |
 | Agent 4 | [TBD — follow-up PRD pending] | [TBD] |
 
-> **Status:** Yuval is active — route all image generation requests to Yuval.
-> Agents 2–4 are undefined — handle all other tasks directly until their roles are specified.
+> **Status:** Yuval (image generation) and יעל/Yael (content writing) are active.
+> Agents 3–4 are undefined — handle all other tasks directly until their roles are specified.
+
+---
+
+## IMAGE_NEEDED Protocol (Yael → Yuval Integration)
+
+When יעל's output in `Output/<filename>` contains `{{IMAGE_NEEDED: "<prompt>"}}` placeholders,
+execute this protocol before returning the result to the user:
+
+1. **Read** `Output/<filename>` and extract every placeholder
+2. **For each placeholder**, invoke Yuval with the prompt:
+   - Brief Yuval: `"צור תמונה: <prompt from placeholder>"`
+   - Yuval returns the path to the generated image (e.g. `yuval/outputs/YYYY-MM-DD-<slug>.png`)
+3. **Replace** `{{IMAGE_NEEDED: "<prompt>"}}` with:
+   ```markdown
+   ![<prompt>](yuval/outputs/YYYY-MM-DD-<slug>.png)
+   ```
+4. **Save** the final version (with real image references) back to `Output/<filename>`
+5. **Log** the full flow in the Obsidian vault (`vault/Publishing Log/` or `vault/Meeting Notes/`)
 
 ---
 
