@@ -2,6 +2,15 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## כיצד עובדת המערכת
+
+כל משימה מנותבת תחילה אל **[CEO Agent](.claude/agents/ceo-agent/agent.md)**.
+הסוכן הראשי מחליט: לטפל לבד, או להפעיל אחד מארבעת הסוכנים הכפופים לו.
+
+```
+משתמש → CEO Agent → לבד / Agent-1 / Agent-2 / Agent-3 / Agent-4
+```
+
 ## תיאור הפרויקט
 
 צוות סוכנים ליצירת תוכן, המנוהל על ידי **סוכן ראשי (מנכ"ל)** שמתזמר את עבודת **צוות הסוכנים** הכפופים לו.

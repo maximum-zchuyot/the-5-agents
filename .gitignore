@@ -6,6 +6,7 @@
 .env.local
 .env.*.local
 
-# Obsidian — keep core vault config, ignore per-window workspace state
+# Obsidian — keep core vault config, ignore auto-updated state files
 .obsidian/workspace.json
 .obsidian/workspace-mobile.json
+.obsidian/graph.json
