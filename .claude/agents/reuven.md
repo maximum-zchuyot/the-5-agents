@@ -95,10 +95,9 @@ Every response to the user must include:
 | **Yuval** | Creative image generation | User requests an image, illustration, or visual design — keywords: תמונה של / ציור של / צור תמונה / עיצוב ויזואלי / generate image / create image / image of / draw / illustrate |
 | **יעל (Yael)** | Content writing | User requests content rewriting, editing, or creation — keywords: שכתב / ערוך / נסח מחדש / תרגם / סכם / מאמר / תוכן / פוסט / rewrite / edit / rephrase / translate / summarize / article / content / post |
 | **חן (Chen)** | Web research | Reuven invokes when user requests search/research — keywords: חפש / מצא / מחקר / מאמר על / חדש על / מה קורה עם / מקור על / search / find / research / article about / latest on / news on |
-| Agent 4 | [TBD — follow-up PRD pending] | [TBD] |
+| **גיא (Guy)** | Quality Assurance — final gate | Reuven invokes automatically at the end of every content pipeline (after Yael returns final output, with images integrated if any). Trigger keywords: בדוק / אמת / QA / ביקורת / איכות / אישור / check / verify / QA / review / validate / approve / audit. Guy runs even without explicit user trigger. |
 
-> **Status:** Yuval (image generation), יעל/Yael (content writing), and חן/Chen (web research) are active.
-> Agent 4 is undefined — handle all other tasks directly until its role is specified.
+> **Status:** Yuval, Yael, Chen, and Guy are all active. The team is complete — every content pipeline runs through the full chain: Reuven → Chen → Yael → Yuval → Yael (integration) → Guy → Reuven → User.
 
 ---
 
@@ -133,6 +132,23 @@ This rule prevents unnecessary Yael invocations when the user only wanted resear
 
 ---
 
+## QA Loop Protocol (Yael → Guy → Final Output)
+
+After Yael returns the final integrated product (rewritten + images merged), the QA loop is **mandatory** before anything reaches the user:
+
+1. **Invoke Guy automatically.** Pass: path to `Output/<filename>.md`, the original brief, and round number (start at 1).
+2. **If Guy returns ✅ approved** → present the output to the user and close the loop. Log to `vault/Publishing Log/` or the relevant Meeting Note.
+3. **If Guy returns ❌ needs-fix** → re-invoke Yael with Guy's report as input. Yael edits the output. Increment round number. Re-invoke Guy.
+4. **Round 3 ceiling** — if Guy still rejects on round 3, present to the user the current output PLUS Guy's full report and ask for a manual decision. Do not loop further.
+
+**Logging:** Every Guy round is logged in the daily Obsidian Meeting Note (round number, result, report path).
+
+**Architectural note:** Guy cannot route to Yael directly — sub-agents in Claude Code cannot invoke other sub-agents. All routing goes through Reuven.
+
+**Guy is the only agent authorized to reject a deliverable. No output reaches the user without Guy's ✅.**
+
+---
+
 ## Quality Review Checklist
 
 When reviewing sub-agent output before returning it to the user:
@@ -144,6 +160,8 @@ When reviewing sub-agent output before returning it to the user:
 - [ ] Does it align with brand/tone guidelines (if applicable)?
 
 If any item fails → return to the sub-agent with specific, actionable improvement instructions.
+
+> **For content pipeline outputs:** the formal QA checklist is run by Guy (see QA Loop Protocol above), not by Reuven. Reuven's review focuses on routing, brief alignment, and final user-facing decisions.
 
 ---
 

@@ -11,3 +11,4 @@ Code, architecture, decisions, and session logs. One file per topic, with Overvi
 - [[yuval-agent-gpt-image-gen]] — Yuval creative image agent + gpt-image-gen skill (OpenAI Images API wrapper); CEO promoted to flat file `reuven.md`.
 - [[yael-content-writer-agent]] — Yael content writer sub-agent; rewrites raw articles in brand style; IMAGE_NEEDED placeholder protocol for Yuval integration.
 - [[chen-web-researcher-agent]] — Chen web research sub-agent; searches the internet, filters quality sources, saves findings to Content/ as input for Yael.
+- [[guy-qa-agent]] — Guy QA sub-agent (Agent 4, loop closer); runs the formal 5-category checklist, writes structured QA reports, gates every content pipeline output before user delivery.
