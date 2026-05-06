@@ -1,0 +1,9 @@
+# Meeting Notes — Index
+
+Code, architecture, decisions, and session logs. One file per topic, with Overview, Open Questions, and a chronological Session Log.
+
+## Topics
+
+- [[project-scaffold]] — initial commit: `CLAUDE.md`, `.gitignore`, `.env`/`.env.example`, the `.claude/` skeleton, first push to `origin/main`.
+- [[superpowers-installation]] — manual install of the `obra/superpowers` skills library (v5.1.0, 14 skills) into `.claude/skills/`.
+- [[obsidian-vault-bootstrap]] — exposing the obsidian skills at the canonical path, wiring SessionStart + UserPromptSubmit hooks, scaffolding `vault/`.

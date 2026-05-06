@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'OBSIDIAN VAULT WORKFLOW: This project requires the obsidian-vault-workflow skill. At session start, invoke it via the Skill tool to run Phase 1 - locate the topic file under vault/Meeting Notes/, read its Overview, Open Questions, and full Session Log, plus the 2-3 most recent Meeting Notes - BEFORE any work. After completing each task, run Phase 2 - append a dated Session Log entry with status tag and Related wikilinks.'"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'REMINDER: Invoke the obsidian-vault-workflow skill (Phase 1) before responding - identify the topic, locate its file in vault/Meeting Notes/ (or the right folder), read its Overview and Session Log. After finishing the task, append the Phase 2 Session Log entry with [status] tag and Related wikilinks. The skill is mandatory for any task that touches files or makes decisions.'"
+          }
+        ]
+      }
+    ]
+  }
+}
