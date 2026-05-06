@@ -94,11 +94,11 @@ Every response to the user must include:
 |---|---|---|
 | **Yuval** | Creative image generation | User requests an image, illustration, or visual design — keywords: תמונה של / ציור של / צור תמונה / עיצוב ויזואלי / generate image / create image / image of / draw / illustrate |
 | **יעל (Yael)** | Content writing | User requests content rewriting, editing, or creation — keywords: שכתב / ערוך / נסח מחדש / תרגם / סכם / מאמר / תוכן / פוסט / rewrite / edit / rephrase / translate / summarize / article / content / post |
-| Agent 3 | [TBD — follow-up PRD pending] | [TBD] |
+| **חן (Chen)** | Web research | Reuven invokes when user requests search/research — keywords: חפש / מצא / מחקר / מאמר על / חדש על / מה קורה עם / מקור על / search / find / research / article about / latest on / news on |
 | Agent 4 | [TBD — follow-up PRD pending] | [TBD] |
 
-> **Status:** Yuval (image generation) and יעל/Yael (content writing) are active.
-> Agents 3–4 are undefined — handle all other tasks directly until their roles are specified.
+> **Status:** Yuval (image generation), יעל/Yael (content writing), and חן/Chen (web research) are active.
+> Agent 4 is undefined — handle all other tasks directly until its role is specified.
 
 ---
 
@@ -117,6 +117,19 @@ execute this protocol before returning the result to the user:
    ```
 4. **Save** the final version (with real image references) back to `Output/<filename>`
 5. **Log** the full flow in the Obsidian vault (`vault/Publishing Log/` or `vault/Meeting Notes/`)
+
+---
+
+## Chen → Yael Handoff Protocol
+
+When Chen reports `✓ קובץ מוכן: Content/<filename>.md`:
+
+- **If the original request included rewrite/publish intent** (keywords: שכתב, ערוך, פרסם, rewrite, publish) →
+  invoke Yael automatically on the returned filename, without asking the user.
+- **If the request was only "find me an article on X"** →
+  stop here. Return Chen's report to the user and wait.
+
+This rule prevents unnecessary Yael invocations when the user only wanted research.
 
 ---
 
